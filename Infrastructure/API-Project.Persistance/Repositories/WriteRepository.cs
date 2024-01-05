@@ -1,6 +1,7 @@
 ﻿using API_Project.Application.Interfaces.Repositories;
 using API_Project.Domain.Common;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,29 +19,28 @@ namespace API_Project.Persistance.Repositories
             this.dbContext = dbContext;
         }
 
-        public Task<int> AddAsync(T entity)
+        private DbSet<T> Table { get => dbContext.Set<T>(); }   
+
+        public async Task AddAsync(T entity)
         {
-            throw new NotImplementedException();
+            await Table.AddAsync(entity);
         }
 
-        public Task<IList<int>> AddRangeAsync(IList<T> entity)
+        public async Task AddRangeAsync(IList<T> entities)
         {
-            throw new NotImplementedException();
+            await Table.AddRangeAsync(entities);
         }
 
-        public Task HardDeleteAsync(T entity)
+        public async Task HardDeleteAsync(T entity)
         {
-            throw new NotImplementedException();
+            await Task.Run(()=> Table.Remove(entity));
+
         }
 
-        public Task SoftDeleteAsync(T entity)
+        public async Task<T> UpdateAsync(T entity)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<T> UpdateAsync(T entity)
-        {
-            throw new NotImplementedException();
+            await Task.Run(() => Table.Update(entity));
+            return entity;
         }
     }
 }
