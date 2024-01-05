@@ -1,4 +1,5 @@
-﻿using System;
+﻿using API_Project.Domain.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Metadata.Ecma335;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace API_Project.Domain.Entities
 {
-    public class Product
+    public class Product : EntityBase
     {
         public required string Title { get; set; }
         public required string Description { get; set; }
