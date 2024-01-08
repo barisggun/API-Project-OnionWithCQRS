@@ -1,4 +1,5 @@
 using API_Project.Persistance;
+using API_Project.Application;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +19,7 @@ builder.Configuration
 
 //Registration'u ekliyoruz, her zaman yukarýdaki iþlemlerden sonra olmalý. Çalýþacaðý ortamý bulduktan sonra
 builder.Services.AddPersistence(builder.Configuration);
+builder.Services.AddApplication();
 
 
 var app = builder.Build();
