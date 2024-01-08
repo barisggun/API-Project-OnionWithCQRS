@@ -1,6 +1,8 @@
 ﻿using API_Project.Application.Interfaces.Repositories;
+using API_Project.Application.Interfaces.UnitOfWorks;
 using API_Project.Persistance.Context;
 using API_Project.Persistance.Repositories;
+using API_Project.Persistance.UnitOfWorks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,6 +22,9 @@ namespace API_Project.Persistance
 
             services.AddScoped(typeof(IReadRepository<>),typeof(ReadRepository<>));
             services.AddScoped(typeof(IWriteRepository<>),typeof(WriteRepository<>));
+
+
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
 
         // IServiceCollection.AddPersistence() olarak çalışır.

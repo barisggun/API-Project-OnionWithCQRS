@@ -19,7 +19,7 @@ namespace API_Project.Persistance.Repositories
             this.dbContext = dbContext;
         }
 
-        private DbSet<T> Table { get => dbContext.Set<T>(); }   
+        private DbSet<T> Table { get => dbContext.Set<T>(); }
 
         public async Task AddAsync(T entity)
         {
@@ -30,17 +30,24 @@ namespace API_Project.Persistance.Repositories
         {
             await Table.AddRangeAsync(entities);
         }
-
-        public async Task HardDeleteAsync(T entity)
-        {
-            await Task.Run(()=> Table.Remove(entity));
-
-        }
-
         public async Task<T> UpdateAsync(T entity)
         {
             await Task.Run(() => Table.Update(entity));
             return entity;
+        }
+        public async Task HardDeleteAsync(T entity)
+        {
+            await Task.Run(() => Table.Remove(entity));
+        }
+
+        public async Task HardDeleteRangeAsync(IList<T> entity)
+        {
+            await Task.Run(() => Table.RemoveRange(entity));
+        }
+
+        public async Task SoftDeleteAsync(T entity)
+        {
+            await Task.Run(() => Table.Update(entity));
         }
     }
 }
